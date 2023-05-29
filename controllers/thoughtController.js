@@ -3,7 +3,9 @@ const { User, Thought } = require('../models');
 module.exports = {
     async getThoughts(req, res) {
       try {
-        const thoughts = await Thought.find();
+        const thoughts = await Thought.find()
+        .select("-__v")
+        .populate('reactions');
         res.json(thoughts);
       } catch (err) {
         res.status(500).json(err);
@@ -104,9 +106,12 @@ module.exports = {
         }
   
         res.json(thought);
+        console.log(thought)
       } catch (err) {
         res.status(500).json(err);
+        console.log(err)
       }
+
     },
     
     async removeReaction(req, res) {
@@ -115,16 +120,17 @@ module.exports = {
           { _id: req.params.thoughtId },
           { $pull: { reactions: { reactionId: req.params.reactionId } } },
           { runValidators: true, new: true }
-        );
-  
+          );
+          console.log(thought)
+    
         if (!thought) {
           return res.status(404).json({ message: 'No thought with this id!' });
         }
-  
+    
         res.json(thought);
       } catch (err) {
         res.status(500).json(err);
       }
-    },
+    }
   };
   

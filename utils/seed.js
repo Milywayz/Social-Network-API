@@ -4,7 +4,6 @@ const { userDb, thoughtDb, reactionDb } = require('./data');
 
 const seedDatabase = async () => {
   try {
-    // Connect to the database
     await connect('mongodb://127.0.0.1:27017/socialDB', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -12,14 +11,12 @@ const seedDatabase = async () => {
 
     console.log('Connected to the database');
 
-    // Clear existing data
     await User.deleteMany({});
     await Thought.deleteMany({});
 
-    // Seed users
+  
     const users = await User.insertMany(userDb);
 
-    // Add friends to users
     const frank = users.find(user => user.userName === 'Frank');
     const james = users.find(user => user.userName === 'James');
 
@@ -29,7 +26,6 @@ const seedDatabase = async () => {
     await frank.save();
     await james.save();
 
-    // Seed thoughts
     for (const thoughtData of thoughtDb) {
       const thought = new Thought(thoughtData);
       await thought.save();

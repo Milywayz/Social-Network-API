@@ -4,7 +4,7 @@ module.exports = {
 
     async getUsers(req, res) {
         try {
-            const users = await User.find();
+            const users = await User.find()
             res.json(users);
         } catch (err) {
             res.status(500).json(err)
@@ -14,7 +14,9 @@ module.exports = {
     async getOneUser(req, res) {
         try{
             const user = await User.findOne({ _id: req.params.userId })
-            .select('-__v');
+            .select("-__v")
+            .populate('thoughts')
+            .populate('friends');
 
             if(!user) {
                 return res.status(404).json({ message: 'No user with that ID!'})
@@ -87,21 +89,21 @@ module.exports = {
         }
       },
       
-      async removeFriend(req, res) {
+      async  removeFriend(req, res) {
         try {
           const user = await User.findOneAndUpdate(
             { _id: req.params.userId },
-            { $pull: { friends: { friendId: req.params.friendId } } },
+            { $pull: { friends: req.params.friendId } },
             { runValidators: true, new: true }
           );
-    
+      
           if (!user) {
             return res.status(404).json({ message: 'No user with this id!' });
           }
-    
+      
           res.json(user);
         } catch (err) {
           res.status(500).json(err);
         }
-      },
+      }
 }
