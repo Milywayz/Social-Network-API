@@ -1,3 +1,5 @@
+// Thought Route
+
 const router = require('express').Router();
 const {
     getThoughts,
@@ -9,6 +11,7 @@ const {
     removeReaction
 } = require('../../controllers/thoughtController')
 
+// localhost:3001/api/thoughts
 router.route('/').get(getThoughts).post(createThought)
 
 router.route('/:thoughtId')

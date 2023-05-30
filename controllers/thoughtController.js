@@ -1,6 +1,8 @@
+// Importing models
 const { User, Thought } = require('../models');
 
 module.exports = {
+  // Get All Thoughts
     async getThoughts(req, res) {
       try {
         const thoughts = await Thought.find()
@@ -11,7 +13,7 @@ module.exports = {
         res.status(500).json(err);
       }
     },
-
+    // Get One Thought
     async getSingleThought(req, res) {
       try {
         const thought = await Thought.findOne({ _id: req.params.thoughtId });
@@ -25,7 +27,7 @@ module.exports = {
         res.status(500).json(err);
       }
     },
-    
+    // Create New Thought
     async createThought(req, res) {
       try {
         const thought = await Thought.create(req.body);
@@ -47,7 +49,7 @@ module.exports = {
         res.status(500).json(err);
       }
     },
-    
+    // Update One Thought
     async updateThought(req, res) {
       try {
         const thought = await Thought.findOneAndUpdate(
@@ -66,7 +68,7 @@ module.exports = {
         res.status(500).json(err);
       }
     },
-    
+    // Delete One Thought
     async deleteThought(req, res) {
       try {
         const thought = await Thought.findOneAndRemove({ _id: req.params.thoughtId });
@@ -92,7 +94,7 @@ module.exports = {
         res.status(500).json(err);
       }
     },
-   
+  //  Adding A Reaction To Thought
     async addReaction(req, res) {
       try {
         const thought = await Thought.findOneAndUpdate(
@@ -106,14 +108,13 @@ module.exports = {
         }
   
         res.json(thought);
-        console.log(thought)
       } catch (err) {
         res.status(500).json(err);
         console.log(err)
       }
 
     },
-    
+    // Deleting A Reaction From Thought
     async removeReaction(req, res) {
       try {
         const thought = await Thought.findOneAndUpdate(
@@ -121,7 +122,7 @@ module.exports = {
           { $pull: { reactions: { reactionId: req.params.reactionId } } },
           { runValidators: true, new: true }
           );
-          console.log(thought)
+
     
         if (!thought) {
           return res.status(404).json({ message: 'No thought with this id!' });

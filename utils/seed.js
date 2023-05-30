@@ -1,3 +1,4 @@
+// Seed Data
 const { connect, connection } = require('mongoose');
 const { User, Thought } = require('../models');
 const { userDb, thoughtDb, reactionDb } = require('./data');

@@ -1,7 +1,8 @@
-const { User, Thought } = require('../models');
+// Importing Models
+const { User } = require('../models');
 
 module.exports = {
-
+  // Get All Users
     async getUsers(req, res) {
         try {
             const users = await User.find()
@@ -10,7 +11,7 @@ module.exports = {
             res.status(500).json(err)
         }
     },
-
+    // Get One User
     async getOneUser(req, res) {
         try{
             const user = await User.findOne({ _id: req.params.userId })
@@ -26,7 +27,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-
+    // Create New User
     async createUser(req, res) {
         try {
           const user = await User.create(req.body);
@@ -36,7 +37,7 @@ module.exports = {
           return res.status(500).json(err);
         }
       },
-
+      // Delete A User
       async deleteUser(req, res) {
         try {
           const user = await User.findOneAndDelete({ _id: req.params.userId });
@@ -51,7 +52,7 @@ module.exports = {
           res.status(500).json(err);
         }
       },
-
+      // Update A User
       async updateUser(req, res) {
         try {
           const user = await User.findOneAndUpdate(
@@ -69,7 +70,7 @@ module.exports = {
           res.status(500).json(err);
         }
       },
-
+      // Add A Friend To User
       async addFriend(req, res) {
         try {
           const user = await User.findOneAndUpdate(
@@ -87,7 +88,7 @@ module.exports = {
           res.status(500).json(err);
         }
       },
-      
+      // Delete A Friend From A User
       async  removeFriend(req, res) {
         try {
           const user = await User.findOneAndUpdate(
