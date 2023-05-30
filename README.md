@@ -17,7 +17,7 @@ Express, Nodemon, and Mongoose were all installed to make this code function wel
 
 ## Usage
 
-![alt text](./Public/image.png)<br>
+![alt text](./Public/Images/image.png)<br>
 [Click here to see the Tutorial](https://watch.screencastify.com/v/CBX0541FPVA7V6VVcLNN)
 
 
